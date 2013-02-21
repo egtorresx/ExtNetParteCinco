@@ -68,6 +68,10 @@
                                 </Reader>                                
                             </ext:PageProxy>
                         </Proxy>
+                        <Listeners>
+                            <DataChanged Fn="onStoreClientLoaded">
+                            </DataChanged>
+                        </Listeners>
                     </ext:Store>                    
                 </Store>                
                 <ColumnModel>
@@ -92,6 +96,9 @@
                     <ext:PagingToolbar ID="barraPaginacion" runat="server" StoreID="storePersonas">
                     </ext:PagingToolbar>
                 </BottomBar>
+                <Listeners>
+                    <ItemClick Fn="onGridItemClick"></ItemClick>
+                </Listeners>
             </ext:GridPanel>
         </Items>
     </ext:Viewport>
@@ -112,6 +119,25 @@
 
                 store.load();
             };
+
+            var onStoreClientLoaded = function(store, options){
+                var msg = "";
+                msg += "Total de Registros Encontrados " +  store.totalCount + "</br>";
+                msg += "Total de Registros Presentados " +  store.data.items.length;
+                console.log(store);
+                Ext.Msg.alert("Store Cargado", msg);
+            }
+
+            var onGridItemClick = function(grid, record, item, index, e, eOpts){
+                var msg = "";
+
+                //el parametro aqui es nombre de la columna en el 'Model' del Store
+                msg += record.get('Apellido') + "</br>";               
+                msg += "Indice (basado en 0) " + index + "</br>";
+                Ext.Msg.alert("Item Click", msg);
+                console.log(record);
+            }
+
         </script>        
     </ext:XScript>
 

@@ -22,7 +22,12 @@ namespace ExtNet_ParteCinco
             storePersonas.DataSource = PersonaRepositorio.Buscar(nombre, apellido, email, direccion, pais, e.Start, e.Limit, out totalRegistros);
             storePersonas.DataBind();
 
+            //e.Total = total de registros encontrados (50 cuando no se aplican filtros), pero por la paginacion solo se presentan 25 en este
+            //ejemplo
+
+            //Ext.NET necesita este valor para luego en el cliente calcular cuantas paginas de resultados existiria
+
             e.Total = totalRegistros;
-        }
+        }        
     }
 }
